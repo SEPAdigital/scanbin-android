@@ -14,9 +14,9 @@ dependencyResolutionManagement {
     }
 }
 
-// Add this new block for toolchain management
+// Update to latest version for better Java toolchain support
 plugins {
-    id("org.gradle.toolchains.foojay-resolver-convention") version "0.5.0"
+    id("org.gradle.toolchains.foojay-resolver-convention") version "0.7.0"
 }
 
 rootProject.name = "ORC Scanner"

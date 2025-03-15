@@ -1,12 +1,12 @@
 object Versions {
-    const val javaVersion = "11"
-    const val gradle = "8.2.0"
+    const val javaVersion = "17"  // Latest LTS version
+    const val gradle = "8.3.0"
     const val compilesdk = 34
     const val minsdk = 24
     const val targetsdk = 34
     const val kotlin = "1.9.22"
     const val ktx = "1.12.0"
-    const val dagger = "2.50"
+    const val dagger = "2.51"  // Latest stable
     const val navComponents = "2.7.7"
     const val room = "2.6.1"
     const val appcompat = "1.6.1"
@@ -27,7 +27,7 @@ object Versions {
     const val espressoContrib = "3.5.1"
     const val androidxTestExt = "1.1.5"
     const val navigationSafeArgs = "2.7.7"
-    const val hiltVersion = "2.50"
+    const val hiltVersion = "2.51"  // Updated to match dagger
     const val javaxInject = "1"
     const val hiltViewModel = "1.1.0"
     const val androidxActivityKtx = "1.8.2"
@@ -38,7 +38,7 @@ object Versions {
     const val roboElectric = "4.11.1"
     const val googleTruth = "1.2.0"
     const val mockito = "5.10.0"
-    const val mockitoDexMaker = "2.2.0"
+    const val mockitoDexMaker = "2.28.0"  // Latest stable
     const val androidXcore = "2.2.0"
     const val loggingInterceptor = "4.12.0"
     const val okHttpMockServer = "4.12.0"
