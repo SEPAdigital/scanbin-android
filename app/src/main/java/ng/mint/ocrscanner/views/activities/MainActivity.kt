@@ -16,8 +16,6 @@ class MainActivity : BaseActivity() {
         requestPermissionsFromDevice()
 
         binding = ActivityMainBinding.inflate(layoutInflater)
-        val navHostFragment =
-            supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         setContentView(binding.root)
         //setLightStatusBar(binding.root)
 

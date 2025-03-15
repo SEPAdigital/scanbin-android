@@ -40,7 +40,7 @@ fun Date.formatToViewDateTimeDefaults(): String {
 
 
 fun String.capitalizeWords(): String =
-    split(" ").joinToString(" ") { it.capitalize(Locale.getDefault()) }
+    split(" ").joinToString(" ") { it.replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString() } }
 
 fun Context.showBinNotification(bin: String) {
     // Check for notification permission on Android 13 (Tiramisu) and higher
