@@ -1,7 +1,7 @@
 object TestDependencies {
 
     private const val junit4 = "junit:junit:${Versions.junit4Version}"
-    private const val hamcrest = "org.hamcrest:hamcrest-all:${Versions.hamcrest}"
+    private const val hamcrest = "org.hamcrest:hamcrest:${Versions.hamcrest}"
     private const val roboElectric = "org.robolectric:robolectric:${Versions.roboElectric}"
     private const val kotlinxCouroutine =
         "org.jetbrains.kotlinx:kotlinx-coroutines-test:${Versions.kotlinCoroutineVersion}"

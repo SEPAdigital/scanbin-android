@@ -37,8 +37,7 @@ object Dependencies {
         "androidx.lifecycle:lifecycle-livedata-ktx:${Versions.lifecycleComponent}"
     private const val hiltAndroid = "com.google.dagger:hilt-android:${Versions.hiltVersion}"
     private const val javaxInject: String = "javax.inject:javax.inject:${Versions.javaxInject}"
-    private const val hiltViewModel: String =
-        "androidx.hilt:hilt-lifecycle-viewmodel:${Versions.hiltViewModel}"
+    private const val hiltNavigationFragment = "androidx.hilt:hilt-navigation-fragment:${Versions.hiltWorker}"
     private const val androidxActivityKtx =
         "androidx.activity:activity-ktx:${Versions.androidxActivityKtx}"
     private const val androidxFragmentKtx =
@@ -74,7 +73,7 @@ object Dependencies {
         lifecycleLiveData,
         hiltAndroid,
         javaxInject,
-        hiltViewModel,
+        hiltNavigationFragment,
         androidxActivityKtx,
         androidxFragmentKtx,
         hiltWorker,

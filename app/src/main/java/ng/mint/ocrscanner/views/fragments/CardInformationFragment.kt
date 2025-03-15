@@ -44,10 +44,9 @@ class CardInformationFragment(
     @Inject
     lateinit var messageDialog: MessageDialogManager
 
-    private val openScanCreditCard = registerForActivityResult(ScanCreditCardContract()) {
-
-        it?.run {
-            val panNumber = this.formattedCardNumber?.replace(" ", "") ?: ""
+    private val openScanCreditCard = registerForActivityResult(ScanCreditCardContract()) { cardNumber ->
+        cardNumber?.let { number ->
+            val panNumber = number.replace(" ", "")
             if (panNumber.length > 5) {
                 processCard(panNumber)
             }
@@ -86,8 +85,8 @@ class CardInformationFragment(
 
         }
 
-        lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel?.cardResult?.collectLatest { observeData(it) }
             }
         }

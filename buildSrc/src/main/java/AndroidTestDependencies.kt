@@ -1,8 +1,7 @@
 object AndroidTestDependencies {
     private const val androidxTestExt = "androidx.test.ext:junit-ktx:${Versions.androidxTestExt}"
     private const val espressoCore = "androidx.test.espresso:espresso-core:${Versions.espressoCore}"
-    private const val mockitoDexMaker =
-        "com.linkedin.dexmaker:dexmaker-mockito:${Versions.mockitoDexMaker}"
+    private const val mockitoAndroid = "org.mockito:mockito-android:${Versions.mockito}"
     private const val googleTruth = "com.google.truth:truth:${Versions.googleTruth}"
     private const val mockito = "org.mockito:mockito-core:${Versions.mockito}"
     private const val kotlinxCouroutine =
@@ -19,7 +18,7 @@ object AndroidTestDependencies {
         listOf(
             androidxTestExt,
             espressoCore,
-            mockitoDexMaker,
+            mockitoAndroid,
             googleTruth,
             mockito,
             kotlinxCouroutine,

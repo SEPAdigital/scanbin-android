@@ -7,9 +7,13 @@ plugins {
     kotlinParcelize
 }
 
+kotlin {
+    jvmToolchain(17)
+}
+
 android {
     compileSdk = Versions.compilesdk
-
+    namespace = "ng.mint.ocrscanner"
     defaultConfig {
         applicationId = Application.id
         minSdk = Versions.minsdk
@@ -35,12 +39,13 @@ android {
     }
 
     compileOptions {
-        targetCompatibility = Java.javaVersion
-        sourceCompatibility = Java.javaVersion
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
-
+    
     kotlinOptions {
-        jvmTarget = Java.javaVersion.toString()
+        jvmTarget = "17"
+        freeCompilerArgs += listOf("-Xopt-in=kotlin.RequiresOptIn")
     }
 
     packagingOptions {
@@ -61,21 +66,20 @@ android {
     }
 }
 
-kotlin {
-
-    val compilerArgs = listOf("-Xopt-in=kotlin.RequiresOptIn")
-    tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
-        kotlinOptions.jvmTarget = Java.javaVersion.toString()
-        kotlinOptions.freeCompilerArgs += compilerArgs
+tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
+    kotlinOptions {
+        jvmTarget = "17"
+        freeCompilerArgs += listOf("-Xopt-in=kotlin.RequiresOptIn")
     }
-
 }
 
 dependencies {
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
+    implementation("io.card:android-sdk:5.5.1")
     implementAll(Dependencies.implementations)
     implementAll(SupportDependencies.supportImplementation)
     testImplementAll(TestDependencies.testImplementation)
+    testImplementation("org.hamcrest:hamcrest:2.2")
     testAndroidImplementAll(AndroidTestDependencies.androidTestImplementation)
     kaptImplementAll(AnnotationProcessors.AnnotationProcessorsImplementation)
     kaptAndroidTestImplementAll(AnnotationProcessors.AnnotationProcessorsImplementation)

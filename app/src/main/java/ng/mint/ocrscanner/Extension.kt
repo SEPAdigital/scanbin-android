@@ -4,6 +4,7 @@ import android.app.Notification
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.Context
+import android.content.pm.PackageManager
 import android.graphics.Color
 import android.media.RingtoneManager
 import android.os.Build
@@ -42,6 +43,13 @@ fun String.capitalizeWords(): String =
     split(" ").joinToString(" ") { it.capitalize(Locale.getDefault()) }
 
 fun Context.showBinNotification(bin: String) {
+    // Check for notification permission on Android 13 (Tiramisu) and higher
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+        if (checkSelfPermission(android.Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
+            // If permission not granted, don't show notification
+            return
+        }
+    }
 
     val message = String.format(getString(R.string.offline_card_result_notification_text), bin)
     val channel = "ocr_scanner_id"
