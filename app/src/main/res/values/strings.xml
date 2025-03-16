@@ -1,23 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">OCR Scanner</string>
-    <string name="credit_card_information">Card\nInformation</string>
+    
+    <!-- Scanner UI -->
+    <string name="scanning_position_card">Position card in frame</string>
+    <string name="card_number_label">Card Number</string>
+    <string name="scanning_camera_error">Camera initialization error</string>
+    <string name="scanning_invalid_card">Invalid card format detected</string>
+    <string name="card_detected">Card detected</string>
+    <string name="invalid_card">Invalid card</string>
+    <string name="invalid_card_number">Invalid card number</string>
+    <string name="invalid_card_format">Invalid card format</string>
+    <string name="non_eu_card_detected">Non-EU card detected</string>
+    
+    <!-- Card Information -->
+    <string name="credit_card_information">Card Information</string>
     <string name="credit_card_number">Card Number</string>
     <string name="get_information">Get Information</string>
-    <string name="about_card">About Card</string>
     <string name="card_scheme">Card Scheme</string>
     <string name="card_type">Card Type</string>
     <string name="card_level">Card Level</string>
-    <string name="country">Country</string>
     <string name="card_bank">Bank</string>
-    <string name="processing">Processing…</string>
-    <string name="no_bin_number_was_found">No BIN number was found.</string>
-    <string name="no_internet_connection">No Internet connection</string>
+    <string name="country">Country</string>
     <string name="currency">Currency</string>
     <string name="phone">Phone</string>
-    <string name="no_cards_added_yet">No Cards saved yet</string>
-    <string name="recently_viewed_cards">Recently\nViewed Cards</string>
+    
+    <!-- Recent Cards -->
+    <string name="recently_viewed_cards">Recently Viewed Cards</string>
+    <string name="no_cards_added_yet">No Cards Added Yet</string>
+    
+    <!-- Manual Entry -->
+    <string name="manual_entry">Enter card manually</string>
+    <string name="submit">Submit</string>
+    <string name="enter_card_number">Enter card number</string>
+    
+    <!-- Status Messages -->
+    <string name="processing">Processing…</string>
+    <string name="scan_successful">Scan successful</string>
+    <string name="scan_failed">Scan failed</string>
+    <string name="try_again">Please try again</string>
+    <string name="no_internet_connection">No Internet connection</string>
+    <string name="no_bin_number_was_found">No BIN number was found</string>
     <string name="no_internet_card_saved_for_future">There\'s currently no internet connection, we\'ll save this BIN (%s) and try it later for you.</string>
     <string name="offline_card_result_notification_text">We\'ve found a result for your offline capture. BIN(%s).</string>
     <string name="view_detail">View Detail</string>
     <string name="offline_scan_result">Offline Scan Result</string>
+    <string name="about_card">About Card</string>
 </resources>

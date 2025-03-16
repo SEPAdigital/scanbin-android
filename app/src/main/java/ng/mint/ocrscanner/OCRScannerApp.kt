@@ -13,11 +13,11 @@ import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 @HiltAndroidApp
-class App : Application(), Configuration.Provider {
-
+class OCRScannerApp : Application(), Configuration.Provider {
+    
     @Inject
     lateinit var workerFactory: HiltWorkerFactory
-
+    
     override val workManagerConfiguration: Configuration
         get() = Configuration.Builder()
             .setWorkerFactory(workerFactory)

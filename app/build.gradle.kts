@@ -6,6 +6,7 @@ plugins {
     navigationSafeArgsKotlin
     kotlinParcelize
     id("com.google.devtools.ksp")
+    id("jacoco")  // JaCoCo plugin for coverage reporting
 }
 
 kotlin {
@@ -22,6 +23,11 @@ android {
         versionCode = Application.versionCode
         versionName = Application.versionName
         testInstrumentationRunner = Application.testInstrumentationRunner
+        
+        // Enable test orchestrator for clean test state
+        testInstrumentationRunnerArguments += mapOf(
+            "clearPackageData" to "true"
+        )
     }
 
     buildFeatures {
@@ -85,8 +91,55 @@ android {
         unitTests {
             isIncludeAndroidResources = true
             isReturnDefaultValues = true
+            // Enable JUnit test coverage reporting
+            all {
+                it.extensions.configure(JacocoTaskExtension::class) {
+                    isIncludeNoLocationClasses = true
+                    excludes = listOf("jdk.internal.*")
+                }
+            }
         }
         animationsDisabled = true
+        
+        // Configure test orchestrator
+        execution = "ANDROIDX_TEST_ORCHESTRATOR"
+        
+        // Device matrix for testing different screen sizes and orientations
+        managedDevices {
+            devices {
+                // Phone device - Portrait
+                maybeCreate<com.android.build.api.dsl.ManagedVirtualDevice>("phonePortrait").apply {
+                    device = "Pixel 6"
+                    apiLevel = 33
+                    systemImageSource = "google"
+                }
+                
+                // Tablet device
+                maybeCreate<com.android.build.api.dsl.ManagedVirtualDevice>("tabletDevice").apply {
+                    device = "Pixel Tablet"
+                    apiLevel = 33
+                    systemImageSource = "google"
+                }
+                
+                // Legacy device
+                maybeCreate<com.android.build.api.dsl.ManagedVirtualDevice>("legacyDevice").apply {
+                    device = "Pixel 4"
+                    apiLevel = 28
+                    systemImageSource = "google"
+                }
+            }
+            groups {
+                maybeCreate("screenSizes").apply {
+                    targetDevices.add(devices["phonePortrait"])
+                    targetDevices.add(devices["tabletDevice"])
+                }
+                
+                maybeCreate("apiMatrix").apply {
+                    targetDevices.add(devices["phonePortrait"])
+                    targetDevices.add(devices["legacyDevice"])
+                }
+            }
+        }
     }
     
     lint {
@@ -109,6 +162,47 @@ tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
             "-Xjvm-default=all"
         )
     }
+}
+
+// JaCoCo test coverage configuration
+jacoco {
+    toolVersion = "0.8.10"
+}
+
+// Create JaCoCo test report task
+tasks.register<JacocoReport>("jacocoTestReport") {
+    dependsOn("testDebugUnitTest")
+    
+    reports {
+        xml.required.set(true)
+        html.required.set(true)
+    }
+    
+    val fileFilter = listOf(
+        "**/R.class",
+        "**/R$*.class",
+        "**/BuildConfig.*",
+        "**/Manifest*.*",
+        "**/*Test*.*",
+        "android/**/*.*",
+        "**/*Hilt*.*",
+        "**/*_Factory*.*",
+        "**/*Module*.*",
+        "**/*Dagger*.*",
+        "**/*MembersInjector*.*",
+        "**/*_Provide*.*"
+    )
+    
+    val mainSrc = "${project.projectDir}/src/main/java"
+    val debugTree = "${buildDir}/tmp/kotlin-classes/debug"
+    
+    sourceDirectories.setFrom(files(mainSrc))
+    classDirectories.setFrom(files(fileTree(debugTree) {
+        exclude(fileFilter)
+    }))
+    executionData.setFrom(fileTree(buildDir) {
+        include("outputs/unit_test_code_coverage/debugUnitTest/testDebugUnitTest.exec")
+    })
 }
 
 // Configure KAPT settings - not needed for Moshi anymore since we use KSP
@@ -136,6 +230,29 @@ kapt {
 dependencies {
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
     implementation("io.card:android-sdk:5.5.1")
+    
+    // CameraX components
+    implementation("androidx.camera:camera-core:1.3.0")
+    implementation("androidx.camera:camera-camera2:1.3.0")
+    implementation("androidx.camera:camera-lifecycle:1.3.0")
+    implementation("androidx.camera:camera-view:1.3.0")
+    
+    // Coroutines
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.7.3")
+    // Coroutines Guava integration for ListenableFuture support
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-guava:1.7.3")
+    
+    // ML Kit Text Recognition
+    implementation("com.google.mlkit:text-recognition:16.0.0")
+    
+    // Material Design components
+    implementation("com.google.android.material:material:1.11.0")
+
+    // CardView for manual entry layout
+    implementation("androidx.cardview:cardview:1.0.0")
+    
     implementAll(Dependencies.implementations)
     implementAll(SupportDependencies.supportImplementation)
     implementAll(AnnotationProcessors.RegularImplementation) // Add SQLite JDBC here
@@ -149,4 +266,27 @@ dependencies {
     kaptImplementAll(AnnotationProcessors.AnnotationProcessorsImplementation)
     kaptAndroidTestImplementAll(AnnotationProcessors.AnnotationProcessorsImplementation)
     debugImplementationAll(DebugDependencies.debugImplementation)
+    
+    // Test orchestrator dependencies
+    androidTestUtil("androidx.test:orchestrator:1.4.2")
+    
+    // Additional test dependencies for API matrix testing
+    androidTestImplementation("androidx.test:rules:1.5.0")
+    androidTestImplementation("androidx.test.uiautomator:uiautomator:2.2.0")
+    
+    // Testing Dependencies
+    androidTestImplementation("androidx.test.ext:junit:1.1.5")
+    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
+    androidTestImplementation("androidx.test.espresso:espresso-contrib:3.5.1")
+    androidTestImplementation("androidx.test.espresso:espresso-intents:3.5.1")
+    androidTestImplementation("androidx.test:runner:1.5.2")
+    androidTestImplementation("org.mockito:mockito-android:5.7.0")
+    androidTestImplementation("org.mockito.kotlin:mockito-kotlin:5.1.0")
+    
+    // Debug implementation
+    debugImplementation("androidx.fragment:fragment-testing:1.6.2")
+    debugImplementation("androidx.test:core:1.5.0")
+    
+    // JaCoCo coverage agent
+    debugImplementation("org.jacoco:org.jacoco.agent:0.8.10:runtime")
 }

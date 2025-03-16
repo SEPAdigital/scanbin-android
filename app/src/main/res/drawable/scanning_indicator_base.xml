@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="@dimen/card_scanner_overlay_width"
+    android:height="@dimen/card_scanner_overlay_height"
+    android:viewportWidth="320"
+    android:viewportHeight="200">
+
+    <!-- Card outline with rounded corners -->
+    <path
+        android:name="cardOutline"
+        android:pathData="M16,8 L304,8 C312,8 312,8 312,16 L312,184 C312,192 312,192 304,192 L16,192 C8,192 8,192 8,184 L8,16 C8,8 8,8 16,8 Z"
+        android:strokeWidth="2"
+        android:strokeColor="#FFFFFF"
+        android:fillColor="#00000000" />
+
+    <!-- Scanning line that will be animated -->
+    <path
+        android:name="scanLine"
+        android:pathData="M20,20 L300,20"
+        android:strokeWidth="2"
+        android:strokeColor="#4CAF50"
+        android:fillColor="#00000000" />
+
+    <!-- Corner indicators -->
+    <path
+        android:pathData="M8,8 L8,30 M8,8 L30,8"
+        android:strokeWidth="3"
+        android:strokeColor="#4CAF50"
+        android:fillColor="#00000000" />
+
+    <path
+        android:pathData="M312,8 L312,30 M312,8 L290,8"
+        android:strokeWidth="3"
+        android:strokeColor="#4CAF50"
+        android:fillColor="#00000000" />
+
+    <path
+        android:pathData="M8,192 L8,170 M8,192 L30,192"
+        android:strokeWidth="3"
+        android:strokeColor="#4CAF50"
+        android:fillColor="#00000000" />
+
+    <path
+        android:pathData="M312,192 L312,170 M312,192 L290,192"
+        android:strokeWidth="3"
+        android:strokeColor="#4CAF50"
+        android:fillColor="#00000000" />
+
+</vector>
+

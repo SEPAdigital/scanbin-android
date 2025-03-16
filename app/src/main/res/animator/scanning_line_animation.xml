@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<set xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Move the scan line from top to bottom -->
+    <objectAnimator
+        android:propertyName="pathData"
+        android:duration="2000"
+        android:valueFrom="M20,20 L300,20"
+        android:valueTo="M20,180 L300,180"
+        android:valueType="pathType"
+        android:repeatCount="infinite"
+        android:repeatMode="reverse"
+        android:interpolator="@android:anim/linear_interpolator" />
+
+    <!-- Fade in and out the scan line -->
+    <objectAnimator
+        android:propertyName="strokeAlpha"
+        android:duration="1000"
+        android:valueFrom="1.0"
+        android:valueTo="0.3"
+        android:valueType="floatType"
+        android:repeatCount="infinite"
+        android:repeatMode="reverse"
+        android:interpolator="@android:interpolator/fast_out_slow_in" />
+</set>
+
